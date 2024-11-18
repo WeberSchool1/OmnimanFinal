@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
 public class TeleOP extends LinearOpMode{
 
     private com.qualcomm.robotcore.hardware.HardwareMap HardwareMap;
-    MecanumDrive Drive;
+    MecanumDrive drive;
     Omniman Man;
     private double armPower;
     private double linearPower;
@@ -76,6 +76,15 @@ public class TeleOP extends LinearOpMode{
             {
                 specimenadjuster=.5;
                 specimenPower=.5;
+            }
+            //Intake code
+            if(gamepad1.a)
+            {
+                intakePower=-1;
+            } else if (gamepad1.y) {
+                intakePower=0;
+            }else if (gamepad1.b){
+                intakePower=.5;
             }
 
 

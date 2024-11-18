@@ -26,7 +26,6 @@ public class AutoArmControl {
     double specimenArmTargetPosition= omniman.getSpecimenTargetPos();
     double specimenArmPower;
 
-    double SpecimenArmAdjuster = omniman.getSpecimenAdjuster();
     //end Specimen Arm imports
 
 
