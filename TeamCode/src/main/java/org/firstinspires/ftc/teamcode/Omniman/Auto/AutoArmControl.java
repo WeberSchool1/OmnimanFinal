@@ -8,22 +8,23 @@ import org.firstinspires.ftc.teamcode.Omniman.Omniman;
 public class AutoArmControl {
     private com.qualcomm.robotcore.hardware.HardwareMap hardwareMap;
     Omniman omniman;
+    LeftAuto Arms;
     //Arm Position imports
     double armPosition =omniman.getArmPosition();
-    double targetArmPosition = omniman.getArmTargetPos();
+    double targetArmPosition = Arms.getARMTARGETPOS();
     double armPower;
     //end Arm Position imports
 
     //Linear Slide imports
     double linearSlidePosition =omniman.getLinearArmPosition();
-    double linearSlideTargetPosition =omniman.getLinearTargetPos();
+    double linearSlideTargetPosition =Arms.getARMTARGETPOS();
     double linearSlidePower;
 
     //end Linear Slide imports
 
     //Speciman Arm imports
     double specimanArmPosition =omniman.getSpecimenArmPosition();
-    double specimenArmTargetPosition= omniman.getSpecimenTargetPos();
+    double specimenArmTargetPosition= omniman.getSpecimenArmPosition();
     double specimenArmPower;
 
     //end Specimen Arm imports
@@ -70,6 +71,7 @@ public class AutoArmControl {
     }else
         specimenArmPower=.1;
     }
+
 
     public double getArmPower() {
         return armPower;
