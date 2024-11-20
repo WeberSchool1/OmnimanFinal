@@ -7,16 +7,16 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Omniman.Auto.AutoArmControl;
+
 import org.firstinspires.ftc.teamcode.Omniman.TeleOP.TeleOP;
 import org.firstinspires.ftc.teamcode.Drive.MecanumDrive;
 
 public class Omniman {
 
     // Motor Variables
-    private int armCurrentPosition=0;
-    private int linearCurrentPosition=0;
-    private int specimenArmPosition=0;
+    private int armCurrentPosition;
+    private int linearCurrentPosition;
+    private int specimenArmPosition;
     private DcMotor linearSlide;
     private DcMotor armPosition;
     private DcMotor specimenArm;
@@ -30,7 +30,7 @@ public class Omniman {
     // Control Objects
     private MecanumDrive drive;
     private TeleOP driverArms = new TeleOP(); // Default initialization
-    private AutoArmControl autoArms;
+
 
     // Constructor
     public Omniman(HardwareMap hwMap) {
@@ -40,7 +40,7 @@ public class Omniman {
     public Omniman(HardwareMap hwMap, Pose2d pose) {
         // Ensure mandatory objects are created during initialization
         drive = new MecanumDrive(hwMap, pose);
-        autoArms = new AutoArmControl(hwMap);
+
 
         // Initialize motors
         armPosition = hwMap.dcMotor.get("arm_position");
@@ -52,6 +52,8 @@ public class Omniman {
         linearSlide = hwMap.dcMotor.get("linear_slide");
         linearSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         linearSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        linearSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        linearSlide.setDirection((DcMotorSimple.Direction.REVERSE));
         linearCurrentPosition=linearSlide.getCurrentPosition();
 
         specimenArm = hwMap.dcMotor.get("specimen_arm");
@@ -68,14 +70,21 @@ public class Omniman {
         intake.setPosition(0.5);
     }
 
-    public void updateMotorsAndServos() {
-        // Update motor powers
-        armPosition.setPower(autoArms.getArmPower() + driverArms.getArmPower());
-        linearSlide.setPower(autoArms.getLinearSlidePower() + driverArms.getLinearPower());
-        specimenArm.setPower(autoArms.getSpecimenArmPower() + driverArms.getSpecimenPower());
+   public void armPositionPower(double Power) {
+       // Update motor powers
+       armPosition.setPower((Power));
+
+   }
+   public void linearPower(double Power) {
+       linearSlide.setPower((Power));
+   }
+   public void specimenPower(double Power) {
+       specimenArm.setPower(Power);
+   }
 
         // Update servo positions
-        intake.setPosition(driverArms.getIntakePower());
+    public void intakePower(double Power) {
+        intake.setPosition(Power);
     }
 
     public void delay(double seconds) {
@@ -87,7 +96,7 @@ public class Omniman {
     }
 
     // Getter methods for motor positions
-    public int getArmPosition() {
+    /* public int getArmPosition() {
         return armCurrentPosition;
     }
 
@@ -97,5 +106,5 @@ public class Omniman {
 
     public int getSpecimenArmPosition() {
         return specimenArmPosition;
-    }
+    }*/
 }

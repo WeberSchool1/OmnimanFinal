@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Omniman.Omniman;
 
-public class AutoArmControl {
+/*public class AutoArmControl {
     private com.qualcomm.robotcore.hardware.HardwareMap hardwareMap;
     Omniman omniman;
     LeftAuto Arms;
@@ -84,7 +84,7 @@ public class AutoArmControl {
     public double getSpecimenArmPower(){
         return specimenArmPower;
     }
-}
+}*/
 
 
 

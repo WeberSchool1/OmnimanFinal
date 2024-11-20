@@ -5,6 +5,10 @@ import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Omniman.Omniman;
@@ -14,6 +18,8 @@ import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
 public class TeleOP extends LinearOpMode {
 
     // Class-level variables
+
+
     private MecanumDrive drive;
     private Omniman Man;
     private double armPower = 0;
@@ -21,6 +27,7 @@ public class TeleOP extends LinearOpMode {
     private double specimenPower = 0;
     private double intakePower = 0;
     private double specimenadjuster = 0;
+    HardwareMap hwMap;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -33,55 +40,56 @@ public class TeleOP extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            // Drive logic
             drive.setDrivePowers(new PoseVelocity2d(
-                    new Vector2d(
-                            -gamepad1.left_stick_y,
-                            -gamepad1.left_stick_x
-                    ),
-                    -gamepad1.right_stick_x
-            ));
-
-            // Arm position logic
+                        new Vector2d(
+                                gamepad1.left_stick_y,
+                                gamepad1.left_stick_x
+                        ),
+                        gamepad1.right_stick_x
+                ));
+            // Initialize motors
             if (gamepad1.right_trigger > 0) {
-                armPower = gamepad1.right_trigger;
+                Man.armPositionPower(gamepad1.right_trigger);
             } else if (gamepad1.left_trigger > 0) {
-                armPower = -gamepad1.left_trigger;
+                Man.armPositionPower(-gamepad1.left_trigger);
             } else {
-                armPower = -0.1;
+                Man.armPositionPower(.01);
             }
 
             // Linear slide logic
             if (gamepad1.right_bumper) {
-                linearPower = 1;
+                Man.linearPower(1);
             } else if (gamepad1.left_bumper) {
-                linearPower = -1;
+                Man.linearPower(-1);
             } else {
-                linearPower = 0;
+               Man.linearPower(0);
             }
 
             // Specimen arm logic
             if (gamepad1.dpad_up) {
-                specimenPower = 1;
+                Man.specimenPower(1);
             } else if (gamepad1.dpad_down) {
-                specimenPower = 0;
+                Man.specimenPower(-1);
             } else if (gamepad1.dpad_left) {
                 specimenadjuster = 1;
             } else if (gamepad1.dpad_right) {
                 specimenadjuster = 0;
             } else {
                 specimenadjuster = 0.5;
-                specimenPower = 0.5;
-            }
+                Man.specimenPower(.005);            }
 
             // Intake logic
             if (gamepad1.a) {
-                intakePower = -1;
+                Man.intakePower(1);
             } else if (gamepad1.y) {
-                intakePower = 0;
+                Man.intakePower(0);
             } else if (gamepad1.b) {
-                intakePower = 0.5;
+                Man.intakePower(.5);
             }
+
+
+            // Arm position logic
+
 
             // Update telemetry for debugging (optional)
             telemetry.addData("Arm Power", armPower);
@@ -110,7 +118,4 @@ public class TeleOP extends LinearOpMode {
         return intakePower;
     }
 
-    public double getSpecimenadjuster() {
-        return specimenadjuster;
-    }
 }
