@@ -3,6 +3,7 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -27,11 +28,10 @@ public class LeftAuto extends LinearOpMode {
             man = new Omniman(hardwareMap);
             while (opModeIsActive()) {
 
-                Action trajectory0 = drive.actionBuilder(new Pose2d(-9.86, -66.66, Math.toRadians(90.00)))
-                        .splineTo(new Vector2d(-52.72, -66.81), Math.toRadians(180.20))
-                        .splineTo(new Vector2d(-41.45, -26.77), Math.toRadians(180.00))
-                        .splineTo(new Vector2d(-53.31, -54.35), Math.toRadians(230.00))
+                Action MoveHB1st = drive.actionBuilder(new Pose2d(-24.10, -63.55, Math.toRadians(180.00)))
+                        .splineTo(new Vector2d(-52.87, -54.20), Math.toRadians(225.00))
                         .build();
+                Actions.runBlocking(MoveHB1st);
                 man.delay(5);
 
 

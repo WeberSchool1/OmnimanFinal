@@ -42,10 +42,10 @@ public class TeleOP extends LinearOpMode {
         while (opModeIsActive()) {
             drive.setDrivePowers(new PoseVelocity2d(
                         new Vector2d(
-                                gamepad1.left_stick_y,
-                                gamepad1.left_stick_x
+                                gamepad1.right_stick_x,
+                                gamepad1.right_stick_y
                         ),
-                        gamepad1.right_stick_x
+                        gamepad1.left_stick_x
                 ));
             // Initialize motors
             if (gamepad1.right_trigger > 0) {
@@ -69,14 +69,10 @@ public class TeleOP extends LinearOpMode {
             if (gamepad1.dpad_up) {
                 Man.specimenPower(1);
             } else if (gamepad1.dpad_down) {
-                Man.specimenPower(-1);
-            } else if (gamepad1.dpad_left) {
-                specimenadjuster = 1;
-            } else if (gamepad1.dpad_right) {
-                specimenadjuster = 0;
+                Man.specimenPower(-1);;
             } else {
-                specimenadjuster = 0.5;
-                Man.specimenPower(.005);            }
+                Man.specimenAdjusterPower(.5);
+                Man.specimenPower(0);            }
 
             // Intake logic
             if (gamepad1.a) {
@@ -86,6 +82,7 @@ public class TeleOP extends LinearOpMode {
             } else if (gamepad1.b) {
                 Man.intakePower(.5);
             }
+
 
 
             // Arm position logic
@@ -101,21 +98,5 @@ public class TeleOP extends LinearOpMode {
         }
     }
 
-    // Getter methods
-    public double getArmPower() {
-        return armPower;
-    }
-
-    public double getLinearPower() {
-        return linearPower;
-    }
-
-    public double getSpecimenPower() {
-        return specimenPower;
-    }
-
-    public double getIntakePower() {
-        return intakePower;
-    }
 
 }
