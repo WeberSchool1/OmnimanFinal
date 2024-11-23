@@ -14,8 +14,7 @@ import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
 
 @Autonomous(name="LeftAuto", group="LeftAuto")
 public class LeftAuto extends LinearOpMode {
-    private double ARMTARGETPOS;
-    private double LINEARTARGETPOS;
+
     MecanumDrive drive;
     Omniman man;
     //AutoArmControl Arms;
@@ -28,11 +27,23 @@ public class LeftAuto extends LinearOpMode {
             man = new Omniman(hardwareMap);
             while (opModeIsActive()) {
 
-                Action MoveHB1st = drive.actionBuilder(new Pose2d(-24.10, -63.55, Math.toRadians(180.00)))
-                        .splineTo(new Vector2d(-52.87, -54.20), Math.toRadians(225.00))
+                Action MoveHB1st = drive.actionBuilder(new Pose2d(-23.95, -63.55, Math.toRadians(180.00)))
+                        .strafeToLinearHeading(new Vector2d(-54.0, -54), Math.toRadians(225))
                         .build();
                 Actions.runBlocking(MoveHB1st);
                 man.delay(5);
+                Action Move1stSample=drive.actionBuilder(new Pose2d(-54,-54,Math.toRadians(225)))
+                        .splineToConstantHeading(new Vector2d(-34,-34),Math.toRadians(225))
+                        .splineToConstantHeading(new Vector2d(-40,-20),Math.toRadians(225))
+                        .build();
+                Actions.runBlocking(Move1stSample);
+                man.delay(3);
+                Action MoveHB2ND = drive.actionBuilder(new Pose2d(-40, -20,Math.toRadians(225)))
+                        .splineToConstantHeading(new Vector2d(-54, -54), Math.toRadians(225))
+                        .build();
+                Actions.runBlocking(MoveHB2ND);
+                man.delay(2);
+
 
 
 
@@ -40,10 +51,6 @@ public class LeftAuto extends LinearOpMode {
 
         }
     }
-    public double getARMTARGETPOS(){
-      return ARMTARGETPOS;
-    }
-    public double getLINEARTARGETPOS(){
-        return LINEARTARGETPOS;
-    }
+
+
 }

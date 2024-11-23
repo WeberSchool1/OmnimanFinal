@@ -38,57 +38,73 @@ public class TeleOP extends LinearOpMode {
         }
 
         waitForStart();
-
+       //Drive Motors
         while (opModeIsActive()) {
             drive.setDrivePowers(new PoseVelocity2d(
-                        new Vector2d(
-                                gamepad1.right_stick_x,
-                                gamepad1.right_stick_y
-                        ),
-                        gamepad1.left_stick_x
-                ));
-            // Initialize motors
-            if (gamepad1.right_trigger > 0) {
-                Man.armPositionPower(gamepad1.right_trigger);
-            } else if (gamepad1.left_trigger > 0) {
-                Man.armPositionPower(-gamepad1.left_trigger);
-            } else {
-                Man.armPositionPower(.01);
-            }
+                    new Vector2d(
+                            -gamepad1.right_stick_y,
+                            -gamepad1.right_stick_x
+                    ),
 
-            // Linear slide logic
-            if (gamepad1.right_bumper) {
-                Man.linearPower(1);
-            } else if (gamepad1.left_bumper) {
-                Man.linearPower(-1);
-            } else {
-               Man.linearPower(0);
-            }
+                    -gamepad1.left_stick_x
+            ));
+            //Noah's controls
+            if (gamepad2.left_trigger>0) {
+            Man.ArmTargetPos(1000);
+            Man.LinearTargetPos(50);
+               //intake logic again
+                if (gamepad1.a) {
+                    Man.intakePower(1);
+                } else if (gamepad1.y) {
+                    Man.intakePower(0);
+                } else if (gamepad1.b) {
+                    Man.intakePower(.5);
+                }
+            }else {
+                //Intake logic
+                if (gamepad1.a) {
+                    Man.intakePower(1);
+                } else if (gamepad1.y) {
+                    Man.intakePower(0);
+                } else if (gamepad1.b) {
+                    Man.intakePower(.5);
+                }
+                //LinearSlide Logic
+                if (gamepad1.right_bumper) {
+                    Man.linearPower(1);
+                } else if (gamepad1.left_bumper) {
+                    Man.linearPower(-1);
+                } else {
+                    Man.linearPower(0);
+                }
 
+                if (gamepad1.right_trigger > 0) {
+                    Man.armPositionPower(gamepad1.right_trigger);
+                } else if (gamepad1.left_trigger > 0) {
+                    Man.armPositionPower(-gamepad1.left_trigger);
+                } else {
+                    Man.armPositionPower(.01);
+                }
+            }
+        }
+        //Drew's controls
             // Specimen arm logic
-            if (gamepad1.dpad_up) {
+            if (gamepad2.y) {
                 Man.specimenPower(1);
-            } else if (gamepad1.dpad_down) {
+            } else if (gamepad2.a) {
                 Man.specimenPower(-1);;
             } else {
-                Man.specimenAdjusterPower(.5);
-                Man.specimenPower(0);            }
-
-            // Intake logic
-            if (gamepad1.a) {
-                Man.intakePower(1);
-            } else if (gamepad1.y) {
-                Man.intakePower(0);
-            } else if (gamepad1.b) {
-                Man.intakePower(.5);
+                Man.specimenPower(0);
             }
+            //Ascent arm logic
+            if(gamepad2.dpad_up){
+                Man.ascentPower(1);
+            } else if (gamepad2.dpad_down) {
+                Man.ascentPower(-1);
+            }else {Man.ascentPower(0);}
 
 
-
-            // Arm position logic
-
-
-            // Update telemetry for debugging (optional)
+        // Update telemetry for debugging (optional)
             telemetry.addData("Arm Power", armPower);
             telemetry.addData("Linear Power", linearPower);
             telemetry.addData("Specimen Power", specimenPower);
@@ -99,4 +115,4 @@ public class TeleOP extends LinearOpMode {
     }
 
 
-}
+
