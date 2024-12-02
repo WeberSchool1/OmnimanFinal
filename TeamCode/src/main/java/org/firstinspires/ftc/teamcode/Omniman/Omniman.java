@@ -86,9 +86,9 @@ public class Omniman {
 
 public void ArmTargetPos(double TargetPos)
 {
-    if(((armPosition.getCurrentPosition()-TargetPos)<0)&&((armPosition.getCurrentPosition()-TargetPos)<50)){
+    if(((armPosition.getCurrentPosition()-TargetPos)<0)&&((armPosition.getCurrentPosition()-TargetPos)<20)){
         armPosition.setPower(1);
-    } else if (((armPosition.getCurrentPosition()-TargetPos)>0)&&((armPosition.getCurrentPosition()-TargetPos>50))){
+    } else if (((armPosition.getCurrentPosition()-TargetPos)>0)&&((armPosition.getCurrentPosition()-TargetPos>20))){
        armPosition.setPower(-1);
     }else{
       armPosition.setPower(0);
