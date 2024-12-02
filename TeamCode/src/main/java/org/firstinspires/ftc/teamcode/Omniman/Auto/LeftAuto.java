@@ -42,7 +42,7 @@ public class LeftAuto extends LinearOpMode {
                         .strafeToLinearHeading(new Vector2d(-54, -54), Math.toRadians(135))
                         .build();
                 Actions.runBlocking(MoveHB1st);
-                man.delay(3);
+              /*  man.delay(3);
                 //Grab Second Sample
                 Action Move1stSample=drive.actionBuilder(new Pose2d(-54,-54,Math.toRadians(135)))
                         .splineToConstantHeading(new Vector2d(-34,-34),Math.toRadians(135))
@@ -85,7 +85,7 @@ public class LeftAuto extends LinearOpMode {
                         .strafeToLinearHeading(new Vector2d(-25, -11), Math.toRadians(360))
                         .build();
                 Actions.runBlocking(Park);
-                //End Movement code
+                //End Movement code*/
                 //Arm Code Start
                 xPos=p.position.x;
                 yPos=p.position.y;

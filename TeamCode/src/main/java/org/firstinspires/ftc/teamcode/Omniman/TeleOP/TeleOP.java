@@ -1,15 +1,13 @@
 package org.firstinspires.ftc.teamcode.Omniman.TeleOP;
 
+import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
-
 import org.firstinspires.ftc.teamcode.Drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Omniman.Omniman;
 import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
@@ -28,6 +26,7 @@ public class TeleOP extends LinearOpMode {
     private double intakePower = 0;
     private double specimenadjuster = 0;
     HardwareMap hwMap;
+    Pose2d p;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -102,6 +101,18 @@ public class TeleOP extends LinearOpMode {
             } else if (gamepad2.dpad_down) {
                 Man.ascentPower(-1);
             }else {Man.ascentPower(0);}
+            //Snapper code
+        Action Snap0= drive.actionBuilder(new Pose2d(p.position.x, p.position.y, 0))
+                .build();
+            if (gamepad2.left_stick_button){
+                Actions.runBlocking(Snap0);
+            }
+            Action Snap180=drive.actionBuilder(new Pose2d(p.position.x,p.position.y, 180))
+                    .build();
+            if(gamepad2.right_stick_button)
+            {
+                Actions.runBlocking(Snap180);
+            }
 
 
         // Update telemetry for debugging (optional)
