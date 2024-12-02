@@ -54,12 +54,15 @@ public class Omniman {
         armPosition = hwMap.dcMotor.get("arm_position");
         armPosition.setDirection(DcMotorSimple.Direction.REVERSE);
         armPosition.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armPosition.setTargetPosition(0);
+
         armPosition.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         linearSlide = hwMap.dcMotor.get("linear_slide");
         linearSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         linearSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        linearSlide.setTargetPosition(0);
         linearSlide.setDirection((DcMotorSimple.Direction.REVERSE));
 
         specimenArm = hwMap.dcMotor.get("specimen_arm");
@@ -68,60 +71,43 @@ public class Omniman {
         specimenArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         specimenArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        ascentArm = hwMap.dcMotor.get("ascentArm");
-        ascentArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-
 
         // Initialize servos
         intake = hwMap.servo.get("intake");
 
+        if(armPosition.getCurrentPosition()-armPosition.getTargetPosition()<0)
+        {
+            armPosition.setPower(1);
+        } else if ((armPosition.getCurrentPosition()-armPosition.getTargetPosition())>0) {
+            armPosition.setPower(-1);
 
+        }else{
+            armPosition.setPower(0);
+        }
+        // Initialize servos
+        intake = hwMap.servo.get("intake");
+        if((linearSlide.getCurrentPosition()-linearSlide.getTargetPosition())<0)
+        {
+            linearSlide.setPower(1);
+        } else if ((linearSlide.getCurrentPosition()- linearSlide.getTargetPosition()<0)){
+            linearSlide.setPower(-1);
 
+        }else{
+            linearSlide.setPower(0);
+        }
 
 
     }
 
-
-
-public void ArmTargetPos(double TargetPos)
-{
-    if(((armPosition.getCurrentPosition()-TargetPos)<0)&&((armPosition.getCurrentPosition()-TargetPos)<20)){
-        armPosition.setPower(1);
-    } else if (((armPosition.getCurrentPosition()-TargetPos)>0)&&((armPosition.getCurrentPosition()-TargetPos>20))){
-       armPosition.setPower(-1);
-    }else{
-      armPosition.setPower(0);
-    }
+public void ArmTargetPos(int TargetPos){
+        armPosition.setTargetPosition(TargetPos);
 }
-public void LinearTargetPos(double TargetPos){
-    if(((linearSlide.getCurrentPosition()-TargetPos)<0)&&(linearSlide.getCurrentPosition()-TargetPos<10)){
-        linearSlide.setPower(1);
-    }
-    else if (((linearSlide.getCurrentPosition()-TargetPos)>0)&&(linearSlide.getCurrentPosition()-TargetPos>10)){
-        linearSlide.setPower(-1);
-    }else{
-            if(armPosition.getCurrentPosition()<2000)
-            {            if(linearSlide.getCurrentPosition()>1000){linearSlide.setPower(-.4);}}
-            else{
-                linearSlide.setPower(0);
-            }
 
-    }
+public void LinearTargetPos(int TargetPos){
+        armPosition.setTargetPosition(TargetPos);
 }
-public void SpecPos(double TargetPos)
-{
-     if((specimenArm.getCurrentPosition()-TargetPos)<0)
-     {
-         specimenArm.setPower(1);
-     } else if ((specimenArm.getCurrentPosition()-TargetPos)>0) {
-         specimenArm.setPower(-1);
-     }else{
-         specimenArm.setPower(0);
-     }
 
 
-}
    public void armPositionPower(double Power) {
        // Update motor powers
        armPosition.setPower((Power));

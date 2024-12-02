@@ -5,8 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous(name="ArmPositionTester", group="ArmPositionTester")
 public class armPosTester extends LinearOpMode {
-    private double Armposition;
-    private double LinearPosition;
+
+    private double Armposition=0;
+    private double LinearPosition=0;
 public void Armposititon(double Arm)
 {
     Armposition=Arm;
@@ -15,6 +16,7 @@ public void LinearPosition(double Linear)
 {
     LinearPosition=Linear;
 }
+
 
     @Override
     public void runOpMode() throws InterruptedException {

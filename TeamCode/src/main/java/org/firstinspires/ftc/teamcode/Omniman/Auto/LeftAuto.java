@@ -17,10 +17,10 @@ import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
 public class LeftAuto extends LinearOpMode {
     private double xPos;
     private double yPos;
-    private double armPositionup=10;
-    private double armPositionDown=0;
-    private double linearPositionup=10;
-    private double linearPositionDown=0;
+    private int  armPositionup=1000;
+    private int  armPositionDown=0;
+    private int linearPositionup=0;
+    private int  linearPositionDown=0;
     Pose2d p;
 
 
@@ -33,13 +33,13 @@ public class LeftAuto extends LinearOpMode {
         waitForStart();
         if (TuningOpModes.DRIVE_CLASS.equals(MecanumDrive.class)) {
 
-            MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(-23.95, -63.55, 180));
+            MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
             man = new Omniman(hardwareMap);
             while (opModeIsActive()) {
                 //Auto Movement code
                 //Score first Sample
-                Action MoveHB1st = drive.actionBuilder(new Pose2d(-23.95, -63.55, Math.toRadians(180.00)))
-                        .strafeToLinearHeading(new Vector2d(-54, -54), Math.toRadians(135))
+                Action MoveHB1st = drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(0)))
+                        .strafeToLinearHeading(new Vector2d(25, -9), Math.toRadians(55))
                         .build();
                 Actions.runBlocking(MoveHB1st);
               /*  man.delay(3);
@@ -89,7 +89,7 @@ public class LeftAuto extends LinearOpMode {
                 //Arm Code Start
                 xPos=p.position.x;
                 yPos=p.position.y;
-                 if((xPos<-50)&&(yPos<-50))
+                 if((xPos<20)&&(yPos<-10))
                  {
                     man.ArmTargetPos(armPositionup);
                     man.delay(.5);
