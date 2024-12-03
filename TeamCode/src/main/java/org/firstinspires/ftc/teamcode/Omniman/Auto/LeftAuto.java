@@ -38,10 +38,14 @@ public class LeftAuto extends LinearOpMode {
             while (opModeIsActive()) {
                 //Auto Movement code
                 //Score first Sample
+                man.ArmTargetPos(1000);
                 Action MoveHB1st = drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(0)))
                         .strafeToLinearHeading(new Vector2d(25, -9), Math.toRadians(55))
                         .build();
                 Actions.runBlocking(MoveHB1st);
+                man.LinearTargetPos(0);
+                man.delay(2);
+                man.intakePower(-1);
               /*  man.delay(3);
                 //Grab Second Sample
                 Action Move1stSample=drive.actionBuilder(new Pose2d(-54,-54,Math.toRadians(135)))
@@ -89,24 +93,6 @@ public class LeftAuto extends LinearOpMode {
                 //Arm Code Start
                 xPos=p.position.x;
                 yPos=p.position.y;
-                 if((xPos<20)&&(yPos<-10))
-                 {
-                    man.ArmTargetPos(armPositionup);
-                    man.delay(.5);
-                    man.LinearTargetPos(linearPositionup);
-                    man.delay(1);
-                    man.intakePower(-1);
-
-                 }else if ((yPos>-25)){
-                     man.intakePower(1);
-                     man.ArmTargetPos(armPositionDown);
-                     man.LinearTargetPos(linearPositionDown);
-                 }else
-                 {
-                     man.intakePower(0);
-                     man.ArmTargetPos(armPositionDown);
-                     man.LinearTargetPos(linearPositionDown);
-                 }
 
             }
 
