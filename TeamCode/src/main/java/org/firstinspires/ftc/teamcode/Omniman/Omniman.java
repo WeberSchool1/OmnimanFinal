@@ -71,43 +71,39 @@ public class Omniman {
         specimenArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         specimenArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-
+        // Initialize servos
+        intake = hwMap.servo.get("intake");
         // Initialize servos
         intake = hwMap.servo.get("intake");
 
-        if(armPosition.getCurrentPosition()-armPosition.getTargetPosition()<0)
-        {
-            armPosition.setPower(1);
-        } else if ((armPosition.getCurrentPosition()-armPosition.getTargetPosition())>0) {
-            armPosition.setPower(-1);
-
-        }else{
-            armPosition.setPower(0);
-        }
-        // Initialize servos
-        intake = hwMap.servo.get("intake");
-        if((linearSlide.getCurrentPosition()-linearSlide.getTargetPosition())<0)
-        {
-            linearSlide.setPower(1);
-        } else if ((linearSlide.getCurrentPosition()- linearSlide.getTargetPosition()<0)){
-            linearSlide.setPower(-1);
-
-        }else{
-            linearSlide.setPower(0);
-        }
 
 
     }
 
-public void ArmTargetPos(int TargetPos){
-        armPosition.setTargetPosition(TargetPos);
+
+public String getIntakeSensor()
+{
+    int red= intakeSensor.red();
+    int blue= intakeSensor.blue();
+    int green= intakeSensor.green();
+
+    if (red>(blue+green))
+    {
+        return ("red");
+    }
+    else if(blue>(red+green))
+    {
+        return("blue");
+    }
+    else if((red>blue)&&(green>blue))
+    {
+        return("yellow");
+    }else
+    {
+        return("null");
+    }
+
 }
-
-public void LinearTargetPos(int TargetPos){
-        armPosition.setTargetPosition(TargetPos);
-}
-
-
    public void armPositionPower(double Power) {
        // Update motor powers
        armPosition.setPower((Power));
@@ -122,6 +118,15 @@ public void LinearTargetPos(int TargetPos){
    public void ascentPower(double Power){
         ascentArm.setPower(Power);
    }
+   public int getArmPos()
+
+   {
+       return armPosition.getCurrentPosition();
+   }
+   public int getLinearPos()
+        {
+          return linearSlide.getCurrentPosition();
+        }
 
         // Update servo positions
     public void intakePower(double Power) {

@@ -48,18 +48,7 @@ public class TeleOP extends LinearOpMode {
                     -gamepad1.left_stick_x
             ));
             //Noah's controls
-            if (gamepad2.left_trigger>0) {
-            Man.ArmTargetPos(1000);
-            Man.LinearTargetPos(50);
-               //intake logic again
-                if (gamepad1.a) {
-                    Man.intakePower(1);
-                } else if (gamepad1.y) {
-                    Man.intakePower(0);
-                } else if (gamepad1.b) {
-                    Man.intakePower(.5);
-                }
-            }else {
+
                 //Intake logic
                 if (gamepad1.a) {
                     Man.intakePower(1);
@@ -84,7 +73,8 @@ public class TeleOP extends LinearOpMode {
                 } else {
                     Man.armPositionPower(.01);
                 }
-            }
+
+
         }
         //Drew's controls
             // Specimen arm logic
@@ -116,11 +106,7 @@ public class TeleOP extends LinearOpMode {
 
 
         // Update telemetry for debugging (optional)
-            telemetry.addData("Arm Power", armPower);
-            telemetry.addData("Linear Power", linearPower);
-            telemetry.addData("Specimen Power", specimenPower);
-            telemetry.addData("Intake Power", intakePower);
-            telemetry.addData("Specimen Adjuster", specimenadjuster);
+            telemetry.addData("Samp",Man.getIntakeSensor());
             telemetry.update();
         }
     }

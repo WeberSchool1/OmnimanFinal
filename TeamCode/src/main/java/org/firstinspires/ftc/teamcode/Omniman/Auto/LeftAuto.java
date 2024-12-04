@@ -15,17 +15,18 @@ import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
 
 @Autonomous(name="LeftAuto", group="LeftAuto")
 public class LeftAuto extends LinearOpMode {
+    Omniman man;
     private double xPos;
     private double yPos;
-    private int  armPositionup=1000;
-    private int  armPositionDown=0;
-    private int linearPositionup=0;
-    private int  linearPositionDown=0;
+    private int armPos= man.getArmPos();
+    private int armTargetPos;
+    private int linearPos= man.getLinearPos();
+    private int linearTargetPos;
     Pose2d p;
 
 
     MecanumDrive drive;
-    Omniman man;
+
     //AutoArmControl Arms;
 
     @Override
@@ -38,22 +39,45 @@ public class LeftAuto extends LinearOpMode {
             while (opModeIsActive()) {
                 //Auto Movement code
                 //Score first Sample
-                man.ArmTargetPos(1000);
+                man.delay(.1);
                 Action MoveHB1st = drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(0)))
                         .strafeToLinearHeading(new Vector2d(25, -9), Math.toRadians(55))
                         .build();
                 Actions.runBlocking(MoveHB1st);
-                man.LinearTargetPos(0);
-                man.delay(2);
-                man.intakePower(-1);
+                man.delay(3);
+                Action Move1stSample = drive.actionBuilder(new Pose2d(25, -9, Math.toRadians(55)))
+                        .strafeToLinearHeading(new Vector2d(12, -9), Math.toRadians(0))
+                        .strafeToLinearHeading(new Vector2d(12, -33), Math.toRadians(0))
+                        .build();
+                Actions.runBlocking(Move1stSample);
                 //Arm Code Start
                 xPos=p.position.x;
                 yPos=p.position.y;
+                if ((armPos-armTargetPos)>0)
+                {
+                    man.armPositionPower(1);
+                }else if (armPos-armTargetPos<0)
+                {
+                    man.armPositionPower(-1);
+                }else
+                {
+                    man.armPositionPower(0);
+                }
+                if ((linearPos-linearTargetPos)>0)
+                {
+                    man.linearPower(1);
+                } else if ((linearPos-linearTargetPos)<0) {
+                    man.linearPower(-1);
+
+                }else {
+                    man.linearPower(0);
+                }
 
             }
 
         }
     }
+
 
 
 }
