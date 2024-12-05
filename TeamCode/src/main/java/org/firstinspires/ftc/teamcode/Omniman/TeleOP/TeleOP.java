@@ -74,17 +74,15 @@ public class TeleOP extends LinearOpMode {
                     Man.armPositionPower(.01);
                 }
 
-
-        }
-        //Drew's controls
-            // Specimen arm logic
-            if (gamepad2.y) {
+            if (gamepad1.dpad_up) {
                 Man.specimenPower(1);
-            } else if (gamepad2.a) {
+            } else if (gamepad1.dpad_down) {
                 Man.specimenPower(-1);;
             } else {
                 Man.specimenPower(0);
             }
+        }
+        //Drew's controls
             //Ascent arm logic
             if(gamepad2.dpad_up){
                 Man.ascentPower(1);

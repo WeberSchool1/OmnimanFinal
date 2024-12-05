@@ -73,8 +73,7 @@ public class Omniman {
 
         // Initialize servos
         intake = hwMap.servo.get("intake");
-        // Initialize servos
-        intake = hwMap.servo.get("intake");
+        //Move arms
 
 
 
@@ -104,6 +103,15 @@ public String getIntakeSensor()
     }
 
 }
+
+   public void setArmPosition(int Position){
+        armPosition.setTargetPosition(Position);
+   }
+   public void setLinearSlide(int Position)
+   {
+       linearSlide.setTargetPosition(Position);
+   }
+
    public void armPositionPower(double Power) {
        // Update motor powers
        armPosition.setPower((Power));
@@ -118,15 +126,6 @@ public String getIntakeSensor()
    public void ascentPower(double Power){
         ascentArm.setPower(Power);
    }
-   public int getArmPos()
-
-   {
-       return armPosition.getCurrentPosition();
-   }
-   public int getLinearPos()
-        {
-          return linearSlide.getCurrentPosition();
-        }
 
         // Update servo positions
     public void intakePower(double Power) {

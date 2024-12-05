@@ -18,9 +18,7 @@ public class LeftAuto extends LinearOpMode {
     Omniman man;
     private double xPos;
     private double yPos;
-    private int armPos= man.getArmPos();
     private int armTargetPos;
-    private int linearPos= man.getLinearPos();
     private int linearTargetPos;
     Pose2d p;
 
@@ -39,12 +37,19 @@ public class LeftAuto extends LinearOpMode {
             while (opModeIsActive()) {
                 //Auto Movement code
                 //Score first Sample
+                man.setArmPosition(1000);
                 man.delay(.1);
                 Action MoveHB1st = drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(0)))
                         .strafeToLinearHeading(new Vector2d(25, -9), Math.toRadians(55))
                         .build();
                 Actions.runBlocking(MoveHB1st);
-                man.delay(3);
+                man.setLinearSlide(1000);
+                man.delay(1.5);
+                man.intakePower(0);
+                man.delay(1);
+                man.setLinearSlide(0);
+                man.delay(.5);
+                man.setArmPosition(0);
                 Action Move1stSample = drive.actionBuilder(new Pose2d(25, -9, Math.toRadians(55)))
                         .strafeToLinearHeading(new Vector2d(12, -9), Math.toRadians(0))
                         .strafeToLinearHeading(new Vector2d(12, -33), Math.toRadians(0))
@@ -53,25 +58,6 @@ public class LeftAuto extends LinearOpMode {
                 //Arm Code Start
                 xPos=p.position.x;
                 yPos=p.position.y;
-                if ((armPos-armTargetPos)>0)
-                {
-                    man.armPositionPower(1);
-                }else if (armPos-armTargetPos<0)
-                {
-                    man.armPositionPower(-1);
-                }else
-                {
-                    man.armPositionPower(0);
-                }
-                if ((linearPos-linearTargetPos)>0)
-                {
-                    man.linearPower(1);
-                } else if ((linearPos-linearTargetPos)<0) {
-                    man.linearPower(-1);
-
-                }else {
-                    man.linearPower(0);
-                }
 
             }
 
