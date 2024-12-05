@@ -47,14 +47,31 @@ public class LeftAuto extends LinearOpMode {
                 man.delay(1.5);
                 man.intakePower(0);
                 man.delay(1);
+                man.intakePower(.5);
                 man.setLinearSlide(0);
                 man.delay(.5);
                 man.setArmPosition(0);
                 Action Move1stSample = drive.actionBuilder(new Pose2d(25, -9, Math.toRadians(55)))
-                        .strafeToLinearHeading(new Vector2d(12, -9), Math.toRadians(0))
+                        .strafeToLinearHeading(new Vector2d(10, -9), Math.toRadians(0))
+                        .strafeToLinearHeading(new Vector2d(10, -33), Math.toRadians(0))
                         .strafeToLinearHeading(new Vector2d(12, -33), Math.toRadians(0))
                         .build();
                 Actions.runBlocking(Move1stSample);
+                man.intakePower(1);
+                man.delay(1);
+                man.intakePower(.5);
+                Action MoveHB2nd = drive.actionBuilder(new Pose2d(12, -33, Math.toRadians(0)))
+                        .strafeToLinearHeading(new Vector2d(25, -9), Math.toRadians(55))
+                        .build();
+                Actions.runBlocking(MoveHB2nd);
+                man.setLinearSlide(1000);
+                man.delay(1.5);
+                man.intakePower(0);
+                man.delay(1);
+                man.intakePower(.5);
+                man.setLinearSlide(0);
+                man.delay(.5);
+                man.setArmPosition(0);
                 //Arm Code Start
                 xPos=p.position.x;
                 yPos=p.position.y;
