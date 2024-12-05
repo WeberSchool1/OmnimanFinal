@@ -81,17 +81,8 @@ public class TeleOP extends LinearOpMode {
             } else {
                 Man.specimenPower(0);
             }
-        }
-        //Drew's controls
-            //Ascent arm logic
-            if(gamepad2.dpad_up){
-                Man.ascentPower(1);
-            } else if (gamepad2.dpad_down) {
-                Man.ascentPower(-1);
-            }else {Man.ascentPower(0);}
-            //Snapper code
-        Action Snap0= drive.actionBuilder(new Pose2d(p.position.x, p.position.y, 0))
-                .build();
+            Action Snap0= drive.actionBuilder(new Pose2d(p.position.x, p.position.y, 0))
+                    .build();
             if (gamepad2.left_stick_button){
                 Actions.runBlocking(Snap0);
             }
@@ -101,7 +92,15 @@ public class TeleOP extends LinearOpMode {
             {
                 Actions.runBlocking(Snap180);
             }
-
+        }
+        //Drew's controls
+            //Ascent arm logic
+            if(gamepad2.dpad_up){
+                Man.ascentPower(1);
+            } else if (gamepad2.dpad_down) {
+                Man.ascentPower(-1);
+            }else {Man.ascentPower(0);}
+            //Snapper code
 
         // Update telemetry for debugging (optional)
             telemetry.addData("Samp",Man.getIntakeSensor());

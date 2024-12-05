@@ -74,7 +74,13 @@ public class Omniman {
         // Initialize servos
         intake = hwMap.servo.get("intake");
         //Move arms
-
+        if (armPosition.getCurrentPosition()<4000)
+        {
+            if (linearSlide.getCurrentPosition()>2000)
+            {
+                linearSlide.setPower(-.4);
+            }
+        }
 
 
     }
