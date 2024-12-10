@@ -19,8 +19,8 @@ import java.lang.annotation.Target;
 public class Omniman {
 
     // Motor Variables
-    private DcMotor linearSlide;
-    private DcMotor armPosition;
+    public DcMotor linearSlide;
+    public DcMotor armPosition;
     private DcMotor specimenArm;
     private DcMotor ascentArm;
 
@@ -33,7 +33,7 @@ public class Omniman {
     //Sensors
     private ColorSensor intakeSensor;
     //Funny colors
-
+    public int armCurrentPosition;
 
     // Control Objects
     private MecanumDrive drive;
@@ -53,17 +53,16 @@ public class Omniman {
         // Initialize motors
         armPosition = hwMap.dcMotor.get("arm_position");
         armPosition.setDirection(DcMotorSimple.Direction.REVERSE);
-        armPosition.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armPosition.setTargetPosition(0);
-
-        armPosition.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+        armPosition.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armPosition.setPower(1);
+        armCurrentPosition= armPosition.getTargetPosition();
 
         linearSlide = hwMap.dcMotor.get("linear_slide");
-        linearSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        linearSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         linearSlide.setTargetPosition(0);
         linearSlide.setDirection((DcMotorSimple.Direction.REVERSE));
+        linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        linearSlide.setPower(1);
 
         specimenArm = hwMap.dcMotor.get("specimen_arm");
         specimenArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -113,7 +112,7 @@ public String getIntakeSensor()
    public void setArmPosition(int Position){
         armPosition.setTargetPosition(Position);
    }
-   public void setLinearSlide(int Position)
+   public void setLinearPosSlide(int Position)
    {
        linearSlide.setTargetPosition(Position);
    }

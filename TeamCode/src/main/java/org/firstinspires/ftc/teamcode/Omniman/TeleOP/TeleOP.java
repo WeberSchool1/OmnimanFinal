@@ -25,6 +25,7 @@ public class TeleOP extends LinearOpMode {
     private double specimenPower = 0;
     private double intakePower = 0;
     private double specimenadjuster = 0;
+    private int armPositionVariable= 0;
     HardwareMap hwMap;
     Pose2d p;
 
@@ -37,6 +38,7 @@ public class TeleOP extends LinearOpMode {
         }
 
         waitForStart();
+        Man.setArmPosition(0);
        //Drive Motors
         while (opModeIsActive()) {
             drive.setDrivePowers(new PoseVelocity2d(
@@ -49,49 +51,30 @@ public class TeleOP extends LinearOpMode {
             ));
             //Noah's controls
 
-                //Intake logic
-                if (gamepad1.a) {
-                    Man.intakePower(1);
-                } else if (gamepad1.y) {
-                    Man.intakePower(0);
-                } else if (gamepad1.b) {
-                    Man.intakePower(.5);
-                }
-                //LinearSlide Logic
-                if (gamepad1.right_bumper) {
-                    Man.linearPower(1);
-                } else if (gamepad1.left_bumper) {
-                    Man.linearPower(-1);
-                } else {
-                    Man.linearPower(0);
-                }
-
-                if (gamepad1.right_trigger > 0) {
-                    Man.armPositionPower(gamepad1.right_trigger);
-                } else if (gamepad1.left_trigger > 0) {
-                    Man.armPositionPower(-gamepad1.left_trigger);
-                } else {
-                    Man.armPositionPower(.01);
-                }
-
-            if (gamepad1.dpad_up) {
-                Man.specimenPower(1);
-            } else if (gamepad1.dpad_down) {
-                Man.specimenPower(-1);;
-            } else {
-                Man.specimenPower(0);
+            //Intake logic
+            if (gamepad1.a) {
+                Man.intakePower(1);
+            } else if (gamepad1.y) {
+                Man.intakePower(0);
+            } else if (gamepad1.b) {
+                Man.intakePower(.5);
             }
-            Action Snap0= drive.actionBuilder(new Pose2d(p.position.x, p.position.y, 0))
-                    .build();
-            if (gamepad2.left_stick_button){
-                Actions.runBlocking(Snap0);
-            }
-            Action Snap180=drive.actionBuilder(new Pose2d(p.position.x,p.position.y, 180))
-                    .build();
-            if(gamepad2.right_stick_button)
+            Man.setLinearPosSlide((int) (200+gamepad1.right_trigger * 2000));
+            //LinearSlide Logic
+            if(gamepad1.dpad_up)
             {
-                Actions.runBlocking(Snap180);
+                armPositionVariable=1750;
+            } else if (gamepad1.dpad_down) {
+                armPositionVariable=300;
+            }else if (gamepad1.dpad_left)
+            {
+                armPositionVariable=700;
+            }else if (gamepad1.dpad_right)
+            {
+                armPositionVariable=500;
             }
+            Man.setArmPosition(armPositionVariable);
+
         }
         //Drew's controls
             //Ascent arm logic
