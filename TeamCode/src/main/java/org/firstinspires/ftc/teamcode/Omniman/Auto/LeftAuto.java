@@ -34,7 +34,7 @@ public class LeftAuto extends LinearOpMode {
             while (opModeIsActive()) {
                 //Auto Movement code
                 //Score first Sample
-                man.setArmPosition(1700);
+                man.setArmPosition(1650);
                 man.setLinearPosSlide(0);
                 Action MoveHB1st = drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(0)))
                         .strafeToLinearHeading(new Vector2d(23, -8), Math.toRadians(55))
@@ -57,7 +57,7 @@ public class LeftAuto extends LinearOpMode {
                 man.intakePower(1);
                 man.delay(1.2);
                 man.intakePower(.5);
-                man.setArmPosition(1750);
+                man.setArmPosition(1700);
                 Action MoveHB2nd = drive.actionBuilder(new Pose2d(12, -33, Math.toRadians(0)))
                         .strafeToLinearHeading(new Vector2d(24, -9), Math.toRadians(43))
                         .build();
@@ -70,7 +70,7 @@ public class LeftAuto extends LinearOpMode {
                 man.intakePower(.5);
                 man.setLinearPosSlide(200);
                 man.delay(1);
-                man.setArmPosition(300);
+                man.setArmPosition(280);
                 Action Move3rdSample = drive.actionBuilder(new Pose2d(24, -9, Math.toRadians(43)))
                         .strafeToLinearHeading(new Vector2d(16, -25), Math.toRadians(0))
                         .strafeToLinearHeading(new Vector2d(18.5, -32), Math.toRadians(-10))
@@ -80,7 +80,7 @@ public class LeftAuto extends LinearOpMode {
                 man.intakePower(1);
                 man.delay(1.2);
                 man.intakePower(.5);
-                man.setArmPosition(1750);
+                man.setArmPosition(1700);
                 Action MoveHB3rd = drive.actionBuilder(new Pose2d(18,-33,Math.toRadians(-10)))
                         .strafeToLinearHeading(new Vector2d(25, -11), Math.toRadians(43))
                         .build();
@@ -93,18 +93,32 @@ public class LeftAuto extends LinearOpMode {
                 man.intakePower(.5);
                 man.setLinearPosSlide(200);
                 man.delay(1);
-                man.setArmPosition(310);
+                man.setArmPosition(300);
                 Action Move4thSample = drive.actionBuilder(new Pose2d(24, -10, Math.toRadians(43)))
                         .strafeToLinearHeading(new Vector2d(24, -25), Math.toRadians(0))
-                        .strafeToLinearHeading(new Vector2d(26, -33.5), Math.toRadians(-45))
+                        .strafeToLinearHeading(new Vector2d(26, -35), Math.toRadians(-25))
                         .build();
                 Actions.runBlocking(Move4thSample);
-                man.setLinearPosSlide(470);
+                man.setLinearPosSlide(550);
                 man.intakePower(1);
                 man.delay(1.2);
                 man.intakePower(.5);
-               // man.setArmPosition(1750);
-                man.delay(3);
+                man.setArmPosition(1750);
+                Action MoveHB4 = drive.actionBuilder(new Pose2d(26, -33.5, Math.toRadians(45)))
+                        .strafeToLinearHeading(new Vector2d(25.5, -11), Math.toRadians(60))
+                        .build();
+                Actions.runBlocking(MoveHB4);
+                man.delay(.5);
+                man.setLinearPosSlide(2200);
+                man.delay(1);
+                man.intakePower(0);
+                man.delay(1);
+                man.intakePower(.5);
+                man.setLinearPosSlide(200);
+                man.delay(1);
+                man.setArmPosition(1000);
+                man.delay(1);
+
             }
 
         }
