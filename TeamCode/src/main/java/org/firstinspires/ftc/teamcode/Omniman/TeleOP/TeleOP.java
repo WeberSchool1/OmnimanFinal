@@ -72,6 +72,9 @@ public class TeleOP extends LinearOpMode {
             }else if (gamepad1.dpad_right)
             {
                 armPositionVariable=500;
+            }else if(gamepad1.start)
+            {
+                armPositionVariable=-100;
             }
             Man.setArmPosition(armPositionVariable);
 

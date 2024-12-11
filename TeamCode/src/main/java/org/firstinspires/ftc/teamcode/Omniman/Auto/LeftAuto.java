@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.sun.tools.javac.util.Position;
+import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 
 import org.firstinspires.ftc.teamcode.Drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Omniman.Omniman;
@@ -21,6 +22,7 @@ public class LeftAuto extends LinearOpMode {
 
     Pose2d p;
     MecanumDrive drive;
+    OpModeManagerImpl opModeManager;
 
     //AutoArmControl Arms;
 
@@ -103,7 +105,7 @@ public class LeftAuto extends LinearOpMode {
                 man.intakePower(1);
                 man.delay(1.2);
                 man.intakePower(.5);
-                man.setArmPosition(1750);
+                man.setArmPosition(1700);
                 Action MoveHB4 = drive.actionBuilder(new Pose2d(26, -33.5, Math.toRadians(45)))
                         .strafeToLinearHeading(new Vector2d(25.5, -11), Math.toRadians(60))
                         .build();
@@ -118,7 +120,7 @@ public class LeftAuto extends LinearOpMode {
                 man.delay(1);
                 man.setArmPosition(1000);
                 man.delay(1);
-
+                opModeManager.initOpMode("TeleOp");
             }
 
         }
